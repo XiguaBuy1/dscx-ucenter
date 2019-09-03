@@ -1,12 +1,12 @@
 {
-    "name": "dscmall/kernel",
-    "description": "dscmall kernel package.",
+    "name": "laravelmall/kernel",
+    "description": "laravelmall kernel package.",
     "type": "library",
     "license": "GPL-3.0",
     "authors": [
         {
-            "name": "zhuofuxi",
-            "email": "zhuofuxi@ecmoban.com"
+            "name": "noikiy",
+            "email": "noikiy@live.com"
         }
     ],
     "require": {
