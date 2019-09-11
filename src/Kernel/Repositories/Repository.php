@@ -10,26 +10,29 @@ class Repository
     public function __construct()
     {
 
-        app(Empower::class)->getPoweredBy();
+        // 跳过授权
+        if (false) {
+            app(Empower::class)->getPoweredBy();
 
-        $path = str_replace('Repositories', '', __DIR__);
+            $path = str_replace('Repositories', '', __DIR__);
 
-        $pathFile = $path . 'Support/helpers.php';
+            $pathFile = $path . 'Support/helpers.php';
 
-        if (is_file($pathFile)) {
-            $strpos = file_get_contents($pathFile);
+            if (is_file($pathFile)) {
+                $strpos = file_get_contents($pathFile);
 
-            if (strpos($strpos, "app(UrlRepository::class)->getCertiInfo();") === false) {
-                /* 安装 start */
-                $lockfile = Storage::disk('local')->exists('seeder/install.lock.php');
-                if ($lockfile) {
-                    app(UrlRepository::class)->getCertiInfo();
-                    app(UrlRepository::class)->getTraceImpower();
+                if (strpos($strpos, "app(UrlRepository::class)->getCertiInfo();") === false) {
+                    /* 安装 start */
+                    $lockfile = Storage::disk('local')->exists('seeder/install.lock.php');
+                    if ($lockfile) {
+                        app(UrlRepository::class)->getCertiInfo();
+                        app(UrlRepository::class)->getTraceImpower();
+                    }
+                    /* 安装 end */
                 }
-                /* 安装 end */
+            } else {
+                dd("缺失" . $pathFile . "文件");
             }
-        } else {
-            dd("缺失" . $pathFile . "文件");
         }
     }
 }
