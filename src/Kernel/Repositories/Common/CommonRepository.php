@@ -63,6 +63,28 @@ class CommonRepository extends Repository
     }
 
     /**
+     * 判断值是否为邮箱
+     * @param $value
+     */
+    public function getMatchEmail($value)
+    {
+        $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/';
+
+        return preg_match_all($regex, $value, $flag) === 1;
+    }
+
+    /**
+     * 判断值是否为手机号
+     * @param $value
+     */
+    public function getMatchPhone($value)
+    {
+        $regex = '/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\d{8}$/';
+
+        return preg_match_all($regex, $value, $flag) === 1;
+    }
+
+    /**
      * 发送短信
      *
      * @param int $mobile 接收手机号码
