@@ -16,6 +16,24 @@ use Illuminate\Support\Facades\Storage;
  */
 class BaseRepository extends Repository
 {
+    /**
+     * 二维数组仿SQL查询获取多条数据
+     * @param $list
+     * @param $sql
+     */
+    public function getArraySqlGet($list = [], $sql = [])
+    {
+        $return = [];
+
+        $condition = $sql['where'][0];
+        foreach ($list as $key => $value) {
+            if ($value[$condition['name']] === $condition['value']) {
+                $return[$key] = $value;
+            }
+        }
+
+        return $return;
+    }
 
     /**
      * 返回数组列表
