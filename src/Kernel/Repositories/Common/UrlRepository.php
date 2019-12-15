@@ -184,7 +184,7 @@ class UrlRepository
                 dd('您不能修改shop_config表code的值certi，请您及时恢复。');
             }
 
-            $dsc_url = 'https://console.dscmall.cn/api/browse';
+            $dsc_url = 'https://localhost.api/api/browse';
 
             $order = OrderInfo::selectRaw("COUNT(*) AS ocount, " . "SUM(" . $this->orderAmountFieldInit() . ") AS oamount")
                 ->where('main_count', 0)

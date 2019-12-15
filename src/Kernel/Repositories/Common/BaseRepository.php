@@ -507,7 +507,7 @@ class BaseRepository extends Repository
      */
     public function getBrowseUrl()
     {
-        return 'https://console.dscmall.cn/api/browse';
+        return 'https://localhost.api/api/browse';
     }
 
     /**

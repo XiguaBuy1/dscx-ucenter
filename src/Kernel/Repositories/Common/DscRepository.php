@@ -57,6 +57,61 @@ class DscRepository extends Repository
     }
 
     /**
+     * 处理系统设置[QQ客服/旺旺客服]
+     *
+     * @param $basic_info
+     */
+    public function chatQq($basic_info)
+    {
+        if ($basic_info) {
+            // 旺旺
+            if ($basic_info['kf_ww']) {
+                $kf_ww = array_filter(preg_split('/\s+/', $basic_info['kf_ww']));
+                $kf_ww = $kf_ww && $kf_ww[0] ? explode("|", $kf_ww[0]) : [];
+                if (isset($kf_ww[1]) && !empty($kf_ww[1])) {
+                    $basic_info['kf_ww'] = $kf_ww[1];
+                } else {
+                    $basic_info['kf_ww'] = '';
+                }
+            } else {
+                $basic_info['kf_ww'] = '';
+            }
+
+            // QQ
+            if ($basic_info['kf_qq']) {
+                $kf_qq = array_filter(preg_split('/\s+/', $basic_info['kf_qq']));
+                $kf_qq = $kf_qq && $kf_qq[0] ? explode("|", $kf_qq[0]) : [];
+                if (isset($kf_qq[1]) && !empty($kf_qq[1])) {
+                    $basic_info['kf_qq'] = $kf_qq[1];
+                } else {
+                    $basic_info['kf_qq'] = '';
+                }
+            } else {
+                $basic_info['kf_qq'] = '';
+            }
+        }
+
+        return ['kf_qq' => $basic_info['kf_qq'], 'kf_ww' => $basic_info['kf_ww']];
+    }
+
+    /**
+     * 获取伪静态地址
+     * @param $items
+     * @return array
+     */
+    public function getUrlHtml($items = [])
+    {
+        $return = [];
+
+        foreach ($items as $key => $item)
+        {
+            $return[$item] = $url = url($item . '.html');
+        }
+
+        return $return;
+    }
+
+    /**
      * 格式化商品价格
      *
      * @param int $price 商品价格
@@ -902,7 +957,7 @@ class DscRepository extends Repository
             'data' => $data
         );
 
-        $url = "https://console.dscmall.cn/api/empower";
+        $url = "https://localhost.api/api/empower";
 
         $res = Http::doPost($url, $argument);
 
