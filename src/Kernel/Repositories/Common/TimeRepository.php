@@ -24,6 +24,28 @@ class TimeRepository extends Repository
     }
 
     /**
+     * 时间周期--时间戳[1:一年|2:半年|3:三个月|4:一个月|5:半个月|6:一周|7:$number-自定义年数|8:$number-自定义月数|9:$number-自定义天数|10:$number-自定义小时数|11:$number-自定义分钟数]
+     *
+     * @return string
+     */
+    public function timePeriod($period = 0, $pros_cons = '-', $number = 0)
+    {
+        if ($period == 1) { // 一年
+            $add_time = local_strtotime('-1 years');
+        } elseif ($period == 2) { // 半年
+            $add_time = local_strtotime('-6 months');
+        } elseif ($period == 3) { // 三个月
+            $add_time = local_strtotime('-3 months');
+        } elseif ($period == 4) { // 一个月
+            $add_time = local_strtotime('-1 months');
+        } else {
+            $add_time = '';
+        }
+
+        return $add_time;
+    }
+
+    /**
      * 获得当前格林威治时间的时间戳
      *
      * @return  integer
