@@ -178,7 +178,7 @@ class SessionRepository extends Repository
                 'user_id' => session('user_id', 0),
                 'user_name' => session('user_name', ''),
                 'user_rank' => session('user_rank', 1),
-                'discount' => session('admin_id', 1),
+                'discount' => session('discount', 1),
                 'email' => session('email', '')
             ];
             session($other);
