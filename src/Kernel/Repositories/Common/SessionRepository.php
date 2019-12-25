@@ -19,6 +19,26 @@ class SessionRepository extends Repository
     public $_ip = '';
     public $_time = 0;
 
+    // 存储一条session
+    public function sessionPut($key = '', $value = '')
+    {
+        if (config('session.driver') === 'database') {
+            session($key, $value);
+        } else {
+            session($key, $value);
+        }
+    }
+
+    // 获取一条session
+    public function sessionGet($key, $default_value = 0)
+    {
+        if (config('session.driver') === 'database') {
+            return session()->has($key) ? session($key) : $default_value;
+        } else {
+            return session()->has($key) ? session($key) : $default_value;
+        }
+    }
+
     public function sessionRepy($session_name = 'ECS_ID', $session_id = '')
     {
         if (config('session.driver') === 'database') {
