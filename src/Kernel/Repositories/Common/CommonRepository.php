@@ -21,6 +21,14 @@ class CommonRepository extends Repository
     }
 
     /**
+     * 检查字符串是否为base64
+     */
+    public function isBase64($str)
+    {
+        return preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $str);
+    }
+
+    /**
      * 查询是否已存在值
      *
      * $where = [

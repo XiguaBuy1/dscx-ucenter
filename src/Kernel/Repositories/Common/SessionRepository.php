@@ -23,9 +23,9 @@ class SessionRepository extends Repository
     public function sessionPut($key = '', $value = '')
     {
         if (config('session.driver') === 'database') {
-            session($key, $value);
+            session()->put($key, $value);
         } else {
-            session($key, $value);
+            session()->put($key, $value);
         }
     }
 
