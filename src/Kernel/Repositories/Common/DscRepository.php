@@ -89,9 +89,11 @@ class DscRepository extends Repository
             } else {
                 $basic_info['kf_qq'] = '';
             }
+        } else {
+            $basic_info['kf_type'] = $basic_info['kf_qq'] = $basic_info['kf_ww'] = '';
         }
 
-        return ['kf_qq' => $basic_info['kf_qq'], 'kf_ww' => $basic_info['kf_ww']];
+        return ['kf_type' => $basic_info['kf_type'], 'kf_qq' => $basic_info['kf_qq'], 'kf_ww' => $basic_info['kf_ww']];
     }
 
     /**
