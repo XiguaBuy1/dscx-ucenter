@@ -208,8 +208,8 @@ class SessionRepository extends Repository
     public function update_session()
     {
         $adminid = session()->has('admin_id') && session('admin_id') ? intval(session('admin_id')) : 0;
-        $userid = session()->has('user_id') && session('user_id') ? trim(session('admin_id')) : 0;
-        $user_name = session()->has('user_name') && session('user_name') ? intval(session('admin_id')) : 0;
+        $userid = session()->has('user_id') && session('user_id') ? intval(session('user_id')) : 0;
+        $user_name = session()->has('user_name') && session('user_name') ? trim(session('user_name')) : 0;
         $user_rank = session()->has('user_rank') && session('user_rank') ? intval(session('user_rank')) : 0;
         $discount = session()->has('discount') && session('discount') ? round(session('discount'), 2) : 0;
         $email = session()->has('email') && session('email') ? trim(session('email')) : 0;
