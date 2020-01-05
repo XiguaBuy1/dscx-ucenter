@@ -57,6 +57,32 @@ class DscRepository extends Repository
     }
 
     /**
+     * 计算积分的价值（能抵多少钱
+     *
+     * @param int $integral
+     * @return float|int
+     */
+    public function valueOfIntegral($integral = 0)
+    {
+        $scale = floatval($this->config['integral_scale']);
+
+        return $scale > 0 ? round(($integral / 100) * $scale, 2) : 0;
+    }
+
+    /**
+     * 计算指定的金额需要多少积分
+     *
+     * @param int $value
+     * @return float|int
+     */
+    public function integralOfValue($value = 0)
+    {
+        $scale = floatval($this->config['integral_scale']);
+
+        return $scale > 0 ? round($value / $scale * 100) : 0;
+    }
+
+    /**
      * 处理系统设置[QQ客服/旺旺客服]
      *
      * @param $basic_info
