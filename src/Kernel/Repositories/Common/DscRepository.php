@@ -11,6 +11,7 @@ use App\Models\OrderGoods;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * Class DscRepository
@@ -54,6 +55,81 @@ class DscRepository extends Repository
         /* 限制文件被篡改 end */
 
         app(UrlRepository::class)->getIsSwoolec();
+    }
+
+    /**
+     * 获取满减金额
+     *
+     * $param array $goods_consumption_list 满减列表
+     * $param float $goods_amount 金额
+     * @return float
+     */
+    public function getGoodsConsumptionPrice($goods_consumption_list, $goods_amount)
+    {
+        $list = app(BaseRepository::class)->getSortBy($goods_consumption_list, 'cfull', 'DESC');
+
+        if (!empty($list)) {
+            foreach($list as $key => $val) {
+                if ($goods_amount >= $val['cfull']) {
+                    return $goods_amount -= $val['creduce'];
+                }
+            }
+        } else {
+            return floatval($goods_amount);
+        }
+    }
+
+    /**
+     * 提取数组数据
+     *
+     * @param array $goods_list
+     * @param string $key
+     * @return array
+     */
+    public function turnPluckFlattenOne($goods_list = [], $key = 'goods_list')
+    {
+        $list = [];
+
+        if ($goods_list && $key) {
+            foreach ($goods_list as $k => $item) {
+                foreach ($item[$key] as $kk => $vv) {
+                    $list[] = $vv;
+                }
+            }
+
+            $list = array_unique($list);
+        }
+
+        return $list;
+
+    }
+
+    /**
+     * 计算运费
+     *
+     * @param string $shipping_code 配送方式代码
+     * @param mixed $shipping_config 配送方式配置信息
+     * @param int $goods_weight 商品重量
+     * @param int $goods_amount 商品金额
+     * @param int $goods_number 商品数量
+     * @return float
+     */
+    public function shippingFee($shipping_code = '', $shipping_config = '', $goods_weight = 0, $goods_amount = 0, $goods_number = 0)
+    {
+        if (!is_array($shipping_config)) {
+            $shipping_config = unserialize($shipping_config);
+        }
+
+        $shipping_name = Str::studly($shipping_code);
+        $shipping = '\\App\\Plugins\\Shipping\\' . $shipping_name . '\\' . $shipping_name;
+        if (class_exists($shipping)) {
+            $obj = new $shipping($shipping_config);
+
+            return $obj->calculate($goods_weight, $goods_amount, $goods_number);
+        } else {
+
+            return 0;
+        }
     }
 
     /**
