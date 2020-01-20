@@ -58,6 +58,14 @@ class DscRepository extends Repository
     }
 
     /**
+     * 转浮点值，保存两位
+     */
+    public function changeFloat($float = 0)
+    {
+        return round($float, 2);
+    }
+
+    /**
      * 获取满减金额
      *
      * $param array $goods_consumption_list 满减列表
