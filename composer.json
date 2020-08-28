@@ -34,7 +34,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:HarriesChen/dscx-kernel.git",
+            "url": "git@github.com:Xiguabuy/dscx-kernel.git",
             "reference": "master"
         }
     ],
